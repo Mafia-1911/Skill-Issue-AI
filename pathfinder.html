@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder | Manager Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background-color: #050505; 
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            margin: 0;
+        }
+        .main-card {
+            background: linear-gradient(145deg, #111111, #0a0a0a);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        }
+        .orange-glow {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.2);
+        }
+        input::placeholder { color: #333; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+    <div class="main-card w-full max-w-xl p-16 rounded-[3rem]">
+        
+        <div class="flex items-center gap-8 mb-14">
+            <div class="h-20 w-20 bg-orange-500 rounded-3xl flex items-center justify-center orange-glow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            </div>
+            <div>
+                <h1 class="text-4xl font-black tracking-tight uppercase">Manager Agent</h1>
+                <p class="text-base text-orange-500 font-bold tracking-[0.4em] uppercase opacity-90">Pathfinder Module</p>
+            </div>
+        </div>
+
+        <div class="space-y-12">
+            <div class="space-y-5">
+                <label class="text-xs font-black text-gray-500 tracking-[0.25em] uppercase ml-1">
+                    Set Your Career Milestone
+                </label>
+                <input type="text" 
+                       placeholder="e.g. Senior Software Engineer" 
+                       class="w-full bg-black border-2 border-white/5 p-6 rounded-2xl text-2xl outline-none focus:border-orange-500 transition-all duration-300 shadow-inner">
+            </div>
+
+            <div class="space-y-6 pt-4">
+                <button class="w-full bg-white text-black font-black py-6 rounded-2xl text-xl hover:bg-orange-500 transition-all duration-300 flex items-center justify-center gap-4 active:scale-[0.97]">
+                    INITIALIZE SCOUTING
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                </button>
+                
+                <div class="flex justify-center items-center gap-2">
+                    <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <p class="text-gray-600 text-sm font-semibold tracking-wide">
+                        System status: <span class="text-gray-400">Neural Engines Ready</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 pt-10 border-t border-white/5 flex justify-between items-end text-gray-500">
+            <div class="flex flex-col gap-1">
+                <span class="text-[10px] uppercase tracking-[0.2em] font-black text-gray-600">Developer</span>
+                <span class="text-lg text-white font-bold">Rony</span>
+            </div>
+            <div class="text-right flex flex-col gap-1">
+                <span class="text-[10px] uppercase tracking-[0.2em] font-black text-gray-600">Environment</span>
+                <span class="text-sm text-orange-500 font-bold font-mono tracking-tighter">branch: rony/pathfinder-ui</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
