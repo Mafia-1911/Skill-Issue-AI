@@ -43,23 +43,20 @@
                 <label class="text-xs font-black text-gray-500 tracking-[0.25em] uppercase ml-1">
                     Set Your Career Milestone
                 </label>
-                <input type="text" 
+                <input type="text"
+                       id="milestoneInput"
                        placeholder="e.g. Senior Software Engineer" 
                        class="w-full bg-black border-2 border-white/5 p-6 rounded-2xl text-2xl outline-none focus:border-orange-500 transition-all duration-300 shadow-inner">
+                
+                       
             </div>
 
             <div class="space-y-6 pt-4">
-                <button class="w-full bg-white text-black font-black py-6 rounded-2xl text-xl hover:bg-orange-500 transition-all duration-300 flex items-center justify-center gap-4 active:scale-[0.97]">
+                <button id="scoutBtn" class="w-full bg-white text-black font-black py-6 rounded-2xl text-xl hover:bg-orange-500 transition-all duration-300 flex items-center justify-center gap-4 active:scale-[0.97]">
                     INITIALIZE SCOUTING
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
                 </button>
                 
-                <div class="flex justify-center items-center gap-2">
-                    <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                    <p class="text-gray-600 text-sm font-semibold tracking-wide">
-                        System status: <span class="text-gray-400">Neural Engines Ready</span>
-                    </p>
-                </div>
             </div>
         </div>
 
@@ -74,6 +71,37 @@
             </div>
         </div>
     </div>
+    <script>
+    const scoutBtn = document.getElementById('scoutBtn');
+    const milestoneInput = document.getElementById('milestoneInput');
 
+    scoutBtn.addEventListener('click', async () => {
+        const goal = milestoneInput.value;
+
+        if (!goal) {
+            alert("Please enter a career milestone first!");
+            return;
+        }
+
+        // 1. Visual Feedback (Shows the Manager Agent is 'thinking')
+        scoutBtn.innerHTML = `SCOUTING... <span class="animate-spin ml-2">⏳</span>`;
+        scoutBtn.classList.add('opacity-70', 'cursor-not-allowed');
+
+        console.log("Manager Agent is processing goal:", goal);
+
+        // 2. Simulate API Call to your agents
+        setTimeout(() => {
+            // In a real project, this is where you send data to Supabase
+            alert("Goal Saved! The Manager Agent has initialized pathfinding for: " + goal);
+            
+            // Reset button
+            scoutBtn.innerHTML = `INITIALIZE SCOUTING <svg>...</svg>`;
+            scoutBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            
+            // Redirect to the next page we made (status.html)
+            window.location.href = 'status.html'; 
+        }, 2000);
+    });
+</script>
 </body>
 </html>
