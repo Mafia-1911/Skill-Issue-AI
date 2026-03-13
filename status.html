@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap | Manager Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #050505; font-family: 'Inter', sans-serif; color: #ffffff; margin: 0; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+        }
+        .step-line {
+            width: 2px;
+            background: linear-gradient(to bottom, #f97316, #444);
+            position: absolute;
+            left: 23px;
+            top: 40px;
+            bottom: -20px;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-8 flex flex-col items-center">
+
+    <div class="w-full max-w-4xl">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-12">
+            <div>
+                <p class="text-orange-500 font-bold tracking-widest text-xs uppercase mb-2">Manager Agent Output</p>
+                <h1 class="text-3xl font-black uppercase tracking-tight">Strategy Dashboard</h1>
+            </div>
+            <a href="pathfinder.html" class="text-xs font-bold text-gray-500 hover:text-white transition-colors uppercase tracking-widest">← Reset goal</a>
+        </div>
+
+        <!-- Goal Spotlight -->
+        <div class="glass-card p-8 rounded-3xl mb-10 border-l-4 border-l-orange-500">
+            <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2">Active Milestone</p>
+            <h2 id="displaygoal" class="text-4xl font-black text-white italic">Loading...</h2>
+        </div>
+
+        <!-- Roadmap Steps -->
+        <div class="space-y-8 relative">
+            <!-- Step 1 -->
+            <div class="flex gap-6 relative">
+                <div class="step-line"></div>
+                <div class="h-12 w-12 rounded-full bg-orange-500 flex items-center justify-center z-10 font-black text-black">1</div>
+                <div class="glass-card p-6 rounded-2xl flex-1">
+                    <h3 class="font-bold text-lg mb-1">Skill Gap Analysis</h3>
+                    <p class="text-gray-400 text-sm">Comparing current repository stats against industry benchmarks for <span class="text-orange-400 font-bold">this role</span>.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex gap-6 relative">
+                <div class="step-line"></div>
+                <div class="h-12 w-12 rounded-full bg-[#222] border border-white/10 flex items-center justify-center z-10 font-black text-white">2</div>
+                <div class="glass-card p-6 rounded-2xl flex-1 opacity-60">
+                    <h3 class="font-bold text-lg mb-1">Scheduler Hand-off</h3>
+                    <p class="text-gray-400 text-sm">Waiting for Scheduler Agent to generate optimal learning windows based on your calendar.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex gap-6">
+                <div class="h-12 w-12 rounded-full bg-[#222] border border-white/10 flex items-center justify-center z-10 font-black text-white">3</div>
+                <div class="glass-card p-6 rounded-2xl flex-1 opacity-60">
+                    <h3 class="font-bold text-lg mb-1">Competency Audit</h3>
+                    <p class="text-gray-400 text-sm">Final verification of skills via Advisor Agent feedback loop.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="mt-16 text-center text-gray-600">
+            <p class="text-[10px] font-bold uppercase tracking-[0.3em]">Agent Status: Processing Neural Mapping</p>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve the goal from memory
+        const savedgoal = localStorage.getItem('usergoal');
+        if (savedgoal) {
+            document.getElementById('displaygoal').innerText = savedgoal;
+        } else {
+            document.getElementById('displaygoal').innerText = "No goal Set";
+        }
+    </script>
+</body>
+</html>
