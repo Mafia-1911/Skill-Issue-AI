@@ -47,8 +47,6 @@
                        id="milestoneInput"
                        placeholder="e.g. Senior Software Engineer" 
                        class="w-full bg-black border-2 border-white/5 p-6 rounded-2xl text-2xl outline-none focus:border-orange-500 transition-all duration-300 shadow-inner">
-                
-                       
             </div>
 
             <div class="space-y-6 pt-4">
@@ -56,7 +54,6 @@
                     INITIALIZE SCOUTING
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
                 </button>
-                
             </div>
         </div>
 
@@ -71,6 +68,7 @@
             </div>
         </div>
     </div>
+
     <script>
     const scoutBtn = document.getElementById('scoutBtn');
     const milestoneInput = document.getElementById('milestoneInput');
@@ -79,29 +77,22 @@
         const goal = milestoneInput.value;
 
         if (!goal) {
-            alert("Please enter a career milestone first!");
+            alert("Enter a goal first!");
             return;
         }
 
-        // 1. Visual Feedback (Shows the Manager Agent is 'thinking')
+        // Show loading state
         scoutBtn.innerHTML = `SCOUTING... <span class="animate-spin ml-2">⏳</span>`;
         scoutBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
-        console.log("Manager Agent is processing goal:", goal);
+        // Save progress locally
+        localStorage.setItem('usergoal', goal);
 
-        // 2. Simulate API Call to your agents
+        // Brief delay then switch pages
         setTimeout(() => {
-            // In a real project, this is where you send data to Supabase
-            alert("Goal Saved! The Manager Agent has initialized pathfinding for: " + goal);
-            
-            // Reset button
-            scoutBtn.innerHTML = `INITIALIZE SCOUTING <svg>...</svg>`;
-            scoutBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-            
-            // Redirect to the next page we made (status.html)
             window.location.href = 'status.html'; 
-        }, 2000);
+        }, 1500);
     });
-</script>
+    </script>
 </body>
 </html>
