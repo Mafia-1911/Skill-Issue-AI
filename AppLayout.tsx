@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import { Brain, LayoutDashboard, Target, Calendar, BookOpen, LogOut, Settings } from "lucide-react";
 import { Button } from "./components/ui/button";
 
+//need to add a way to track sentiments 
+// need to make the ui smooth 
+
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: Target, label: "Goals", path: "/goals" },
