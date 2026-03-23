@@ -1,0 +1,5 @@
+Check list for the layout : 
+The Login Buttton 
+An extra button for logging in with google 
+Integrating AI based responses 
+Making API Calls and Getting responses back 
