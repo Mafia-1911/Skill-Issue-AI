@@ -111,3 +111,26 @@ Create a detailed weekly study plan.`;
         }),
       }
     );
+ if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Gemini API error:", response.status, errorText);
+ 
+      if (response.status === 429) {
+        return new Response(
+          JSON.stringify({ error: "Rate limit hit. Please wait a moment and try again." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      if (response.status === 401) {
+        return new Response(
+          JSON.stringify({ error: "Invalid Gemini API key. Check your Supabase secrets." }),
+          { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      throw new Error(`Gemini API returned ${response.status}`);
+    }
+ 
+    const data = await response.json();
+ 
+    // Gemini OpenAI-compatible endpoint uses the same response shape as OpenAI
+    const content = data.choices?.[0]?.message?.content || "";
