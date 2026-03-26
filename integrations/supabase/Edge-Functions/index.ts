@@ -92,3 +92,22 @@ Create a detailed weekly study plan.`;
     } else {
       throw new Error("Unknown action: " + action);
     }
+ // ── Call Gemini API (OpenAI-compatible endpoint) ────────────────────────
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/openai/chat/completions`,
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${GEMINI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "gemini-1.5-flash",  // free model
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          temperature: 0.7,
+        }),
+      }
+    );
