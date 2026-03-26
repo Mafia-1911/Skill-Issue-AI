@@ -132,5 +132,29 @@ Create a detailed weekly study plan.`;
  
     const data = await response.json();
  
-    // Gemini OpenAI-compatible endpoint uses the same response shape as OpenAI
+    // 
     const content = data.choices?.[0]?.message?.content || "";
+  
+ 
+    // ── Parse JSON from response ────────────────────────────────────────────
+    let parsed;
+    try {
+      const jsonMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
+      parsed = jsonMatch ? JSON.parse(jsonMatch[1].trim()) : JSON.parse(content);
+    } catch {
+      console.error("Failed to parse Gemini response:", content);
+ 
+      parsed = action === "breakdown"
+        ? {
+            skills: [
+              { title: "Core Fundamentals", description: "Build foundational knowledge in this area.", priority: 1 },
+              { title: "Practical Application", description: "Apply concepts through hands-on projects.", priority: 2 },
+              { title: "Advanced Topics", description: "Explore deeper and more advanced concepts.", priority: 3 },
+            ],
+          }
+        : { summary: "Weekly study plan generated.", totalHours: availableHours, tasks: [] };
+    }
+ 
+    return new Response(JSON.stringify(parsed), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
