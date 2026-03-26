@@ -48,4 +48,47 @@ Break this career goal into 4-6 specific skill areas I need to learn.`;
         return d.toISOString().split("T")[0];
       });
  
-      systemPrompt = `You are an AI study scheduler that accounts for user wellbeing. Create a weekly study plan with specific daily tasks.
+        systemPrompt = `You are an AI study scheduler that accounts for user wellbeing. Create a weekly study plan with specific daily tasks.
+ 
+Return ONLY a raw JSON object (no markdown, no code fences) with:
+- summary: string (1-2 sentence overview)
+- totalHours: number
+- tasks: array of objects, each with:
+  - title (string)
+  - description (string)
+  - date (YYYY-MM-DD, must be one of the provided dates)
+  - durationMinutes (number, between 15 and 60)
+  - skillGoalId (string matching one of the provided skill IDs, or null)
+ 
+BURNOUT RULES:
+- Burnout score > 70 (HIGH): Cut total hours by 40%, light review tasks only
+- Burnout score > 50 (ELEVATED): Cut total hours by 20%, sessions 15-25 min
+- Burnout score > 25 (MODERATE): Normal schedule, cap sessions at 45 min
+- Burnout score <= 25 (LOW): Optimise for productivity
+- Mood 1-2: Easy review content only
+- Energy 1-2: Short sessions earlier in the day
+- Stress 4-5: Add mindfulness breaks between sessions
+ 
+Give rest on weekends. Spread tasks evenly.`;
+ 
+      const moodContext = moodData
+        ? `User Wellbeing:
+- Burnout Score: ${moodData.burnoutScore}/100
+- Mood: ${moodData.mood}/5
+- Energy: ${moodData.energy}/5
+- Stress: ${moodData.stress}/5
+- Trend: ${moodData.trend}`
+        : "No mood data — use standard scheduling.";
+ 
+      userPrompt = `Career Goal: ${careerGoal}
+Available hours/week: ${availableHours}
+Skills: ${JSON.stringify(skills)}
+Dates this week: ${JSON.stringify(dates)}
+ 
+${moodContext}
+ 
+Create a detailed weekly study plan.`;
+ 
+    } else {
+      throw new Error("Unknown action: " + action);
+    }
