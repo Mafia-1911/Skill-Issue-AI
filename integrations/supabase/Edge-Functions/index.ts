@@ -167,3 +167,7 @@ Create a detailed weekly study plan.`;
     );
   }
 });
+
+// if the function fails we shall make a proxy to handle requests 
+let proxyUse:bool=false;
+
