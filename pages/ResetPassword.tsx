@@ -45,3 +45,37 @@ const Auth = () => {
 
   if (loading) return null;
   if (user) return <Navigate to="/dashboard" replace />;
+
+  
+  // ── Email/Password submit ────────────────────────────────────────────────
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    if (view === "login") {
+      const { error } = await signIn(email, password);
+      if (error) {
+        toast({
+          title: "Login failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    } else if (view === "signup") {
+      const { error } = await signUp(email, password, fullName);
+      if (error) {
+        toast({
+          title: "Sign up failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Check your email",
+          description: "We sent you a confirmation link.",
+        });
+      }
+    }
+
+    setSubmitting(false);
+  };
