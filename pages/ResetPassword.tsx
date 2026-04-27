@@ -123,3 +123,13 @@ const Auth = () => {
 
     setSubmitting(false);
   };
+  
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  const isLogin = view === "login";
+  const isForgot = view === "forgot";
+
+  const headingText = {
+    login: "Welcome back",
+    signup: "Create your account",
+    forgot: "Reset your password",
+  }[view];
