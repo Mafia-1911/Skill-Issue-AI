@@ -402,3 +402,27 @@ const Auth = () => {
                     {!submitting && <ArrowRight className="w-4 h-4 ml-2" />}
                   </Button>
                 </form>
+
+                {/* Toggle login / signup */}
+                <p className="text-center text-sm text-muted-foreground mt-6">
+                  {isLogin
+                    ? "Don't have an account?"
+                    : "Already have an account?"}{" "}
+                  <button
+                    type="button"
+                    onClick={() => setView(isLogin ? "signup" : "login")}
+                    className="text-primary hover:underline font-medium"
+                  >
+                    {isLogin ? "Sign up" : "Sign in"}
+                  </button>
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+export default Auth;
