@@ -139,3 +139,35 @@ const Auth = () => {
     signup: "Start building your skills with AI guidance",
     forgot: "Enter your email and we'll send you a reset link",
   }[view];
+
+  
+  return (
+    <div className="min-h-screen flex bg-background">
+      {/* ── Left branding panel  ─────────────────────────────── */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center">
+        <div className="absolute inset-0 gradient-glow" />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 text-center px-12"
+        >
+          <div className="inline-flex items-center gap-3 mb-8">
+            <div className="w-14 h-14 rounded-2xl gradient-gold flex items-center justify-center shadow-glow">
+              <Brain className="w-8 h-8 text-primary-foreground" />
+            </div>
+            <span className="font-display text-3xl font-bold text-foreground">
+              Skill-Issue
+            </span>
+          </div>
+          <h1 className="font-display text-5xl font-bold text-foreground mb-6 leading-tight">
+            AI-Powered
+            <br />
+            <span className="text-gradient">Skill Building</span>
+            <br />
+            Manager
+          </h1>
+          <p className="text-muted-foreground text-lg max-w-md mx-auto">
+            Define your career goals. Let AI create your personalized learning
+            path. Track progress with intelligent scheduling.
+          </p>
