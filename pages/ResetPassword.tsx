@@ -267,3 +267,32 @@ const Auth = () => {
                 </p>
               </motion.form>
             )}
+            
+            {/* ── LOGIN / SIGNUP VIEW ──────────────────────────────────── */}
+            {!isForgot && (
+              <motion.div
+                key={view}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+              >
+                {/* Google OAuth button */}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleGoogleSignIn}
+                  className="w-full h-12 border-border bg-secondary hover:bg-secondary/80 font-medium text-foreground flex items-center justify-center gap-3 mb-5"
+                >
+                  <GoogleIcon />
+                  Continue with Google
+                </Button>
+
+                {/* Divider */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="flex-1 h-px bg-border" />
+                  <span className="text-xs text-muted-foreground">
+                    or continue with email
+                  </span>
+                  <div className="flex-1 h-px bg-border" />
+                </div>
+
