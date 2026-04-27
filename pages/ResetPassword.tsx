@@ -133,3 +133,9 @@ const Auth = () => {
     signup: "Create your account",
     forgot: "Reset your password",
   }[view];
+
+  const subText = {
+    login: "Sign in to continue your learning journey",
+    signup: "Start building your skills with AI guidance",
+    forgot: "Enter your email and we'll send you a reset link",
+  }[view];
