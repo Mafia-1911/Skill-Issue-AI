@@ -208,3 +208,28 @@ const Auth = () => {
               SkillForge
             </span>
           </div>
+
+          {/* Heading */}
+          <h2 className="font-display text-2xl font-bold text-foreground mb-2">
+            {headingText}
+          </h2>
+          <p className="text-muted-foreground mb-8">{subText}</p>
+
+          {/* ── FORGOT PASSWORD VIEW ───────────────────────────────────── */}
+          <AnimatePresence mode="wait">
+            {isForgot && (
+              <motion.form
+                key="forgot"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                onSubmit={handleForgotPassword}
+                className="space-y-5"
+              >
+                <div>
+                  <Label
+                    htmlFor="reset-email"
+                    className="text-sm text-muted-foreground"
+                  >
+                    Email
+                  </Label>
