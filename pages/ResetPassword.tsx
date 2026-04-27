@@ -233,3 +233,37 @@ const Auth = () => {
                   >
                     Email
                   </Label>
+  <Input
+                    id="reset-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="mt-1.5 bg-secondary border-border h-12"
+                    required
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full h-12 gradient-gold text-primary-foreground font-display font-semibold text-base shadow-glow hover:opacity-90 transition-opacity"
+                >
+                  {submitting ? "Sending..." : "Send Reset Link"}
+                  {!submitting && <ArrowRight className="w-4 h-4 ml-2" />}
+                </Button>
+
+                <p className="text-center text-sm text-muted-foreground">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setView("login");
+                      setEmail("");
+                    }}
+                    className="text-primary hover:underline font-medium"
+                  >
+                    ← Back to sign in
+                  </button>
+                </p>
+              </motion.form>
+            )}
