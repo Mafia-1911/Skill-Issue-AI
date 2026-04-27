@@ -171,3 +171,22 @@ const Auth = () => {
             Define your career goals. Let AI create your personalized learning
             path. Track progress with intelligent scheduling.
           </p>
+
+          <div className="mt-12 flex items-center gap-6 justify-center">
+            {["Smart Planning", "Auto-Scheduling", "AI Guidance"].map(
+              (feature, i) => (
+                <motion.div
+                  key={feature}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + i * 0.15 }}
+                  className="flex items-center gap-2 text-muted-foreground"
+                >
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  <span className="text-sm">{feature}</span>
+                </motion.div>
+              ),
+            )}
+          </div>
+        </motion.div>
+      </div>
