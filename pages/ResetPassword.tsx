@@ -296,3 +296,71 @@ const Auth = () => {
                   <div className="flex-1 h-px bg-border" />
                 </div>
 
+                {/* Email / Password form */}
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <AnimatePresence mode="wait">
+                    {!isLogin && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        key="fullname"
+                      >
+                        <Label
+                          htmlFor="fullName"
+                          className="text-sm text-muted-foreground"
+                        >
+                          Full Name
+                        </Label>
+                        <Input
+                          id="fullName"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          placeholder="John Doe"
+                          className="mt-1.5 bg-secondary border-border h-12"
+                          required={!isLogin}
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div>
+                    <Label
+                      htmlFor="email"
+                      className="text-sm text-muted-foreground"
+                    >
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      className="mt-1.5 bg-secondary border-border h-12"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <Label
+                        htmlFor="password"
+                        className="text-sm text-muted-foreground"
+                      >
+                        Password
+                      </Label>
+                      {/* Forgot password link — only show on login */}
+                      {isLogin && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setView("forgot");
+                            setPassword("");
+                          }}
+                          className="text-xs text-primary hover:underline"
+                        >
+                          Forgot password?
+                        </button>
+                      )}
+                    </div>
