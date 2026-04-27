@@ -364,3 +364,41 @@ const Auth = () => {
                         </button>
                       )}
                     </div>
+<div className="relative">
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="••••••••"
+                        className="bg-secondary border-border h-12 pr-10"
+                        required
+                        minLength={6}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="w-4 h-4" />
+                        ) : (
+                          <Eye className="w-4 h-4" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full h-12 gradient-gold text-primary-foreground font-display font-semibold text-base shadow-glow hover:opacity-90 transition-opacity"
+                  >
+                    {submitting
+                      ? "Please wait..."
+                      : isLogin
+                        ? "Sign In"
+                        : "Create Account"}
+                    {!submitting && <ArrowRight className="w-4 h-4 ml-2" />}
+                  </Button>
+                </form>
