@@ -190,3 +190,21 @@ const Auth = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* ── Right form panel ─────────────────────────────────────────────── */}
+      <div className="flex-1 flex items-center justify-center p-8">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-md"
+        >
+          {/* Mobile logo  */}
+          <div className="lg:hidden flex items-center gap-3 mb-8 justify-center">
+            <div className="w-10 h-10 rounded-xl gradient-gold flex items-center justify-center">
+              <Brain className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="font-display text-xl font-bold text-foreground">
+              SkillForge
+            </span>
+          </div>
