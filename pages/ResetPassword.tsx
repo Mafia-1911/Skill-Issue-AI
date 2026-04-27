@@ -79,3 +79,20 @@ const Auth = () => {
 
     setSubmitting(false);
   };
+    // ── Google OAuth ─────────────────────────────────────────────────────────
+  const handleGoogleSignIn = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) {
+      toast({
+        title: "Google sign-in failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
