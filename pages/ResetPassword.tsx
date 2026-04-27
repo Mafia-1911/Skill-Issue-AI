@@ -96,3 +96,30 @@ const Auth = () => {
     }
   };
 
+
+  // ── Forgot password ──────────────────────────────────────────────────────
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+
+    if (error) {
+      toast({
+        title: "Reset failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Reset link sent",
+        description: "Check your email for a password reset link.",
+      });
+      setView("login");
+      setEmail("");
+    }
+
+    setSubmitting(false);
+  };
