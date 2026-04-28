@@ -12,6 +12,8 @@ import WeeklyPlan from "./pages/WeeklyPlan";
 import Sessions from "./pages/Sessions";
 import SettingsPage from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Analytics from "./pages/Analytics";
+import Coach from "./pages/Coach";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,8 @@ const App = () => (
               <Route path="/weekly-plan" element={<WeeklyPlan />} />
               <Route path="/sessions" element={<Sessions />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/coach" element={<Coach />} />
             </Route>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="*" element={<NotFound />} />
