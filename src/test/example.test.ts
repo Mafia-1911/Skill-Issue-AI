@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
-
-describe("example", () => {
-  it("should pass", () => {
-    expect(true).toBe(true);
-  });
-});
+import React from "react";
+import { beforeEach, describe, it, vi } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import NotFound from "@/pages/NotFound";
+import Auth from "@/pages/Auth";
