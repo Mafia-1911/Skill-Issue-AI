@@ -124,3 +124,45 @@ describe("utils: cn", () => {
     checkBoundaryValues();
   });
 });
+
+describe("NotFound page", () => {
+  /**
+   * Checks the 404 heading, subtitle, and home-link href are all rendered.
+   * Also manually captures console.error to verify the route is logged.
+   */
+  it("renders 404 UI and logs the attempted route", () => {
+    // Capture console.error calls without suppressing them permanently.
+    const logged: unknown[][] = [];
+    const original = console.error;
+    console.error = (...args: unknown[]) => logged.push(args);
+
+    try {
+      render(
+        React.createElement(MemoryRouter, { initialEntries: ["/bad-path"] },
+          React.createElement(NotFound)),
+      );
+
+      assertPresent(screen.queryByText("404"), "404 heading");
+      assertPresent(screen.queryByText("Oops! Page not found"), "subtitle");
+
+      const link = screen.queryByRole("link", { name: "Return to Home" });
+      assertPresent(link, "home link");
+      assertEq(link!.getAttribute("href"), "/", "home link href");
+
+      // Walk logged entries to confirm the route error was emitted.
+      let found = false;
+      for (let i = 0; i < logged.length; i++) {
+        if (
+          logged[i][0] === "404 Error: User attempted to access non-existent route:" &&
+          logged[i][1] === "/bad-path"
+        ) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) throw new Error("Expected console.error with route '/bad-path' was not called");
+    } finally {
+      console.error = original; // always restore, even if test throws
+    }
+  });
+});
