@@ -227,3 +227,34 @@ describe("Auth page", () => {
       );
     });
   });
+  
+  /**
+   * Submits the signup form with a multi-word full name and confirms:
+   *   1. signUp is called with the exact three arguments.
+   *   2. A "Check your email" success toast appears.
+   */
+  it("calls signUp with correct args and shows success toast", async () => {
+    render(React.createElement(MemoryRouter, null, React.createElement(Auth)));
+
+    fireEvent.click(screen.getByRole("button", { name: "Sign up" }));
+    fireEvent.change(screen.getByLabelText("Full Name"), { target: { value: "Mary Ann Smith" } });
+    fireEvent.change(screen.getByLabelText("Email"),     { target: { value: "mary@example.com" } });
+    fireEvent.change(screen.getByLabelText("Password"),  { target: { value: "password123" } });
+    fireEvent.click(screen.getByRole("button", { name: "Create Account" }));
+
+    // Verify signUp received the right positional arguments.
+    assertCalledWith(
+      mockSignUp,
+      ([email, password, name]) => email === "mary@example.com" && password === "password123" && name === "Mary Ann Smith",
+      "signUp args",
+    );
+
+    await waitFor(() => {
+      assertCalledWith(
+        mockToast,
+        (args) => (args[0] as Record<string, unknown>)["title"] === "Check your email",
+        "success toast after signup",
+      );
+    });
+  });
+});
