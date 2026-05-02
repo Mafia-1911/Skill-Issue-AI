@@ -80,3 +80,47 @@ function containsSubset(obj: Record<string, unknown>, subset: Record<string, unk
   return true;
 }
 
+// ─── Tests ───────────────────────────────────────────────────────────────────
+
+describe("utils: cn", () => {
+  /**
+   * checkBoundaryValues — runs cn() against every boundary case in the table
+   * and throws the moment any output doesn't match its expected value.
+   *
+   * A "boundary value" here means an input at the extreme edge of what cn()
+   * must handle: completely empty, only-falsy, a single token, a very long
+   * chain, and tokens that contain spaces. These are the values most likely
+   * to expose off-by-one errors or silent type coercions inside the utility.
+   *
+   * How it works:
+   *   1. Build a cases table — each row is [label, inputs[], expectedOutput].
+   *   2. Loop over every row with a plain for-loop.
+   *   3. Call cn(...inputs) and compare with assertEq.
+   *   4. Any mismatch throws immediately, surfacing the failing label.
+   */
+  it("boundary values: empty, falsy-only, single, spaced, and long inputs", () => {
+    function checkBoundaryValues(): void {
+      const cases: [string, Parameters<typeof cn>, string][] = [
+        // ── below-minimum boundary: no tokens at all ──────────────────
+        ["empty call",        [],                                             ""],
+        // ── boundary: only falsy tokens, nothing valid should survive ──
+        ["only falsy",        [null as never, false as never, undefined],     ""],
+        // ── exact-minimum valid boundary: one real token ───────────────
+        ["single token",      ["solo"],                                       "solo"],
+        // ── tokens that contain internal spaces must pass through as-is ─
+        ["spaced token",      ["first", "last name", "active"],               "first last name active"],
+        // ── falsy values mixed in between valid tokens ─────────────────
+        ["falsy mixed in",    ["base", null as never, false as never, "tail"],"base tail"],
+        // ── upper boundary: many tokens joined without extra whitespace ──
+        ["long chain",        ["a","b","c","d","e","f","g","h","i","j"],      "a b c d e f g h i j"],
+      ];
+
+      for (let i = 0; i < cases.length; i++) {
+        const [label, inputs, expected] = cases[i];
+        assertEq(cn(...inputs), expected, `cn boundary — ${label}`);
+      }
+    }
+
+    checkBoundaryValues();
+  });
+});
