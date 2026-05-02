@@ -38,3 +38,21 @@ vi.mock("@/hooks/use-toast", () => ({
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: { auth: { signInWithOAuth: mockOAuth, resetPasswordForEmail: mockResetPasswordForEmail } },
 }));
+
+
+/**
+ * Throws if actual !== expected.
+ */
+function assertEq(actual: unknown, expected: unknown, label: string): void {
+  if (actual !== expected) {
+    throw new Error(`[${label}] Expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+  }
+}
+
+/**
+ * Throws if element is null/undefined (i.e. not in the DOM).
+ */
+function assertPresent(el: Element | null | undefined, label: string): void {
+  if (el == null) throw new Error(`[${label}] Expected element to be in the DOM`);
+}
+
