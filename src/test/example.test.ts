@@ -166,3 +166,39 @@ describe("NotFound page", () => {
     }
   });
 });
+
+describe("Auth page", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockAuthState.user = null;
+    mockAuthState.loading = false;
+    mockSignIn.mockResolvedValue({ error: null });
+    mockSignUp.mockResolvedValue({ error: null });
+    mockOAuth.mockResolvedValue({ error: null });
+    mockResetPasswordForEmail.mockResolvedValue({ error: null });
+  });
+
+  /**
+   * Walks three mode transitions (login → signup → login → forgot-password)
+   * using a loop, asserting the correct action button appears after each click.
+   */
+  it("navigates between login, signup, and forgot-password modes", async () => {
+    render(React.createElement(MemoryRouter, null, React.createElement(Auth)));
+    //Asserting Present login mode
+    assertPresent(screen.queryByRole("button", { name: "Sign In" }), "default login mode");
+
+    
+    const steps: [string, string][] = [
+      ["Sign up",          "Create Account"],
+      ["Sign in",          "Sign In"],
+      ["Forgot password?", "Send Reset Link"],
+    ];
+
+    for (let i = 0; i < steps.length; i++) {
+      const [click, expect] = steps[i];
+      const btn = screen.queryByRole("button", { name: click });
+      assertPresent(btn, `nav button "${click}"`);
+      fireEvent.click(btn!);
+      assertPresent(screen.queryByRole("button", { name: expect }), `action button "${expect}" after step ${i}`);
+    }
+  });
