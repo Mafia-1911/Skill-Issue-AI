@@ -202,3 +202,28 @@ describe("Auth page", () => {
       assertPresent(screen.queryByRole("button", { name: expect }), `action button "${expect}" after step ${i}`);
     }
   });
+
+  /**
+   * Simulates a failed login and confirms a destructive toast is shown
+   * with the right title, description, and variant.
+   */
+  it("shows destructive toast on login failure", async () => {
+    mockSignIn.mockResolvedValue({ error: { message: "Invalid credentials" } });
+
+    render(React.createElement(MemoryRouter, null, React.createElement(Auth)));
+    fireEvent.change(screen.getByLabelText("Email"),    { target: { value: "user@example.com" } });
+    fireEvent.change(screen.getByLabelText("Password"), { target: { value: "secret123" } });
+    fireEvent.click(screen.getByRole("button", { name: "Sign In" }));
+
+    await waitFor(() => {
+      assertCalledWith(
+        mockToast,
+        (args) => containsSubset(args[0] as Record<string, unknown>, {
+          title: "Login failed",
+          description: "Invalid credentials",
+          variant: "destructive",
+        }),
+        "destructive toast on login failure",
+      );
+    });
+  });
